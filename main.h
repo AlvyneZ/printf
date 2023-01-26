@@ -20,6 +20,8 @@ typedef struct format_spec_s
 } format_spec_t;
 
 int _putchar(char c);
+int _strlen(char *s);
+int _puts(char *s);
 
 int _printf(const char *format, ...);
 

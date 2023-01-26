@@ -28,6 +28,34 @@ void init_format_spec(format_spec_t *form_specifiers)
 }
 
 /**
+ * check_format - Prints from the given variable list
+ *  given the type using a format specifier
+ * @specifier: The format specifier
+ * @fs: supported format speicier array
+ * @var: Pointer to the variable list
+ * Return: The number of characters that are printed
+ */
+int check_format(char specifier, format_spec_t *fs, va_list *var)
+{
+	unsigned int j, p, c;
+
+	for (c = 0, p = 0, j = 0; (!p) && (fs[j].spec != 0); j++)
+	{/* Looping through the supported specifiers */
+		if (specifier == fs[j].spec)
+		{
+			c += fs[j].print_func(var);
+			p = 1;
+		}
+	}
+	if (!p)
+	{/* Handling when the specifier is not supported */
+		c += _putchar('%');
+		c += _putchar(specifier);
+	}
+	return (c);
+}
+
+/**
  * _printf - Prints all its parameters (any type) given
  *  a list of types, then followed by a newline
  * @format: list of the types of arguments
@@ -35,7 +63,7 @@ void init_format_spec(format_spec_t *form_specifiers)
  */
 int _printf(const char *format, ...)
 {
-	unsigned int i, j, p, c;
+	unsigned int i, c;
 	va_list var;
 	format_spec_t form[SUPPORTED_SPEC_COUNT];
 
@@ -47,23 +75,11 @@ int _printf(const char *format, ...)
 		{
 			if (format[++i] != '\0')
 			{
-				for (p = 0, j = 0; (!p) && (form[j].spec != 0); j++)
-				{/* Looping through the supported specifiers */
-					if (format[i] == form[j].spec)
-					{
-						c += form[j].print_func(&var);
-						p = 1;
-					}
-				}
-				if (!p)
-				{/* Handling when the specifier is not supported */
-					c += _putchar('%');
-					c += _putchar(format[i]);
-				}
+				c += check_format(format[i], form, &var);
 			}
 			else
 			{/* Handling when '%' is the last character */
-				c += _putchar('%');
+				_putchar('%');
 				c = -1;
 				break;
 			}

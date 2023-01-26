@@ -19,7 +19,6 @@ int print_char(va_list *var)
  */
 int print_str(va_list *var)
 {
-	int c;
 	char *str;
 
 	str = va_arg(*var, char *);
@@ -27,14 +26,7 @@ int print_str(va_list *var)
 	{
 		return (-1);
 	}
-	for (c = 0; (*str != '\0'); str++)
-	{
-		if (_putchar(*str) == 1)
-			c++;
-		else
-			return (-1);
-	}
-	return (c);
+	return (_puts(str));
 }
 
 /**
