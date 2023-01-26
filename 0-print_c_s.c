@@ -8,7 +8,7 @@
  */
 int print_char(va_list *var)
 {
-	return ((_putchar(va_arg(*var, int)) == 1) ? 1 : 0);
+	return (_putchar(va_arg(*var, int)));
 }
 
 /**
@@ -27,8 +27,22 @@ int print_str(va_list *var)
 	{
 		for (c = 0; (*str != '\0'); str++)
 		{
-			c += ((_putchar(*str) == 1) ? 1 : 0);
+			if (_putchar(*str) == 1)
+				c++;
+			else
+				return (-1);
 		}
 	}
 	return (c);
+}
+
+/**
+ * print_pcnt- Prints a percentage sign
+ * @var: Pointer to the variable list
+ * Return: The number of characters that are printed
+ */
+int print_pcnt(va_list *var)
+{
+	(void)var;
+	return (_putchar('%'));
 }
