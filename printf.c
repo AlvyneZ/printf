@@ -45,18 +45,17 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			i++;
-			if (format[i] != '\0')
+			if (format[++i] != '\0')
 			{
-				for (p = 1, j = 0; (p) && (form[j].spec != 0); j++)
+				for (p = 0, j = 0; (!p) && (form[j].spec != 0); j++)
 				{/* Looping through the supported specifiers */
 					if (format[i] == form[j].spec)
 					{
 						c += form[j].print_func(&var);
-						p = 0;
+						p = 1;
 					}
 				}
-				if (p)
+				if (!p)
 				{/* Handling when the specifier is not supported */
 					c += _putchar('%');
 					c += _putchar(format[i]);
@@ -65,6 +64,8 @@ int _printf(const char *format, ...)
 			else
 			{/* Handling when '%' is the last character */
 				c += _putchar('%');
+				c = -1;
+				break;
 			}
 		}
 		else

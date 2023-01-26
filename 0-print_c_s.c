@@ -23,15 +23,16 @@ int print_str(va_list *var)
 	char *str;
 
 	str = va_arg(*var, char *);
-	if (str != NULL)
+	if (str == NULL)
 	{
-		for (c = 0; (*str != '\0'); str++)
-		{
-			if (_putchar(*str) == 1)
-				c++;
-			else
-				return (-1);
-		}
+		return (-1);
+	}
+	for (c = 0; (*str != '\0'); str++)
+	{
+		if (_putchar(*str) == 1)
+			c++;
+		else
+			return (-1);
 	}
 	return (c);
 }
