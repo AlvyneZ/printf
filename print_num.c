@@ -6,28 +6,53 @@
  * 
  * Return: Nothing
 */
-void print_num(char *format, ...) {
+
+void my_printf(const char *format, ...)
+{
     va_list args;
     va_start(args, format);
 
-    for (int i = 0; format[i] != '\0'; i++) {
-        if (format[i] == '%') {
+    for (int i = 0; format[i] != '\0'; i++) 
+    {
+        if (format[i] == '%') 
+        {
             i++;
-            switch (format[i]) {
+            switch (format[i]) 
+            {
                 case 'd':
-                    printf("%d", va_arg(args, int));
-                    break;
                 case 'i':
-                    printf("%i", va_arg(args, int));
+                {
+                    int value = va_arg(args, int);
+                    char buffer[12];
+                    char *p = buffer + sizeof(buffer);
+                    unsigned v;
+                    if (value < 0) 
+                    {
+                        v = -value;
+                        *--p = '-';
+                    }
+                    else 
+                    {
+                        v = value;
+                    }
+                    do
+                    {
+                        *--p = v % 10 + '0';
+                        v /= 10;
+                    }
+                    while (v);
+                    fwrite(p, 1, buffer + sizeof(buffer) - p, stdout);
                     break;
+                }
                 default:
                     putchar(format[i]);
                     break;
             }
-        } else {
+        }
+        else 
+        {
             putchar(format[i]);
         }
     }
-
     va_end(args);
 }
