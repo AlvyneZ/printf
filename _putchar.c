@@ -35,5 +35,5 @@ int _strlen(char *s)
  */
 int _puts(char *s)
 {
-	return(write(1, s, _strlen(s)));
+	return (write(1, s, _strlen(s)));
 }
