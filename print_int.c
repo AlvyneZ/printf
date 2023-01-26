@@ -71,21 +71,12 @@ void print_number(int n)
 }
 
 /**
- * print_array - Prints out the elements of an integer array
- * @a: Pointer to integer array
- * @n: Array length
+ * print_char- Prints a char from the first element of
+ *  a given variable list
+ * @var: Pointer to the variable list
+ * Return: The number of characters that are printed
  */
-void print_array(int *a, int n)
+int print_char(va_list *var)
 {
-	int cnt;
-
-	if (n > 0)
-		print_number(*a);
-	for (cnt = 1; cnt < n; cnt++)
-	{
-		_putchar(',');
-		_putchar(' ');
-		print_number(*(a + cnt));
-	}
-	_putchar('\n');
+	return (_putchar(va_arg(*var, int)));
 }
