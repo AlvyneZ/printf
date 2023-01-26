@@ -93,6 +93,5 @@ int print_number(int n)
  */
 int print_int(va_list *var)
 {
-	print_number(va_arg(*var, int));
-	return (1);
+	return(print_number(va_arg(*var, int)));
 }
