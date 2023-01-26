@@ -1,7 +1,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#define SUPPORTED_SPEC_COUNT 3
+#define SUPPORTED_SPEC_COUNT 5
 #define NULL ((void *)0)
 
 #include <stdarg.h>
@@ -30,5 +30,6 @@ int print_str(va_list *var);
 int print_pcnt(va_list *var);
 
 void my_printf(const char *format, ...);
+int print_int(va_list *var);
 
 #endif /* _MAIN_H_ */
