@@ -14,6 +14,8 @@ void init_format_spec(format_spec_t *form_specifiers)
 		{'c', &print_char},
 		{'s', &print_str},
 		{'%', &print_pcnt},
+		{'d', &print_int},
+		{'i', &print_int},
 		/*
 		 * NOTE: "SUPPORTED_SPEC_COUNT" should be changed in
 		 *  main.h after adding new specifiers
