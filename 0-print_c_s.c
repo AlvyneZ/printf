@@ -22,10 +22,11 @@ void print_str(va_list *var, print_buf_t *b)
 	char *str;
 
 	str = va_arg(*var, char *);
-	if (str != NULL)
+	if (str == NULL)
 	{
-		buf_add_str(str, b);
+		str = "(null)";
 	}
+	buf_add_str(str, b);
 }
 
 /**

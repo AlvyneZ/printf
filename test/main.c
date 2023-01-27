@@ -14,8 +14,8 @@ int main(void)
     /*unsigned int ui;
     void *addr;*/
 
-    len = _printf("Let's try to printf a simple sentence.%%\n%");
-    len2 = printf("Let's try to printf a simple sentence.%%\n%");
+    len = _printf("Let's try to printf a simple sentence.%%\n");
+    len2 = printf("Let's try to printf a simple sentence.%%\n");
     printf("****Length:[%d, %i]\n\n", len, len2);
     /*ui = (unsigned int)INT_MAX + 1024;
     addr = (void *)0x7ffe637541f0;*/
@@ -40,8 +40,8 @@ int main(void)
     len = _printf("Character:[%c]\n", 'H');
     len2 = printf("Character:[%c]\n", 'H');
     printf("****Length:[%d, %i]\n\n", len, len2);
-    len = _printf("String:[%s]\n", "I am a string !");
-    len2 = printf("String:[%s]\n", "I am a string !");
+    len = _printf("String:[%s]\n", NULL);
+    len2 = printf("String:[%s]\n", NULL);
     printf("****Length:[%d, %i]\n\n", len, len2);
     /*len = _printf("Address:[%p]\n", addr);
     len2 = printf("Address:[%p]\n", addr);
