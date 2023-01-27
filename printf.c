@@ -34,26 +34,26 @@ void init_format_spec(format_spec_t *form_specifiers)
  * @specifier: The format specifier
  * @fs: supported format speicier array
  * @var: Pointer to the variable list
- * Return: The number of characters that are printed
+ * @b: A pointer to the print buffer to be used
  */
-int check_format(char specifier, format_spec_t *fs, va_list *var)
+void check_format(char specifier, format_spec_t *fs,
+		va_list *var, print_buf_t *b)
 {
-	unsigned int j, p, c;
+	unsigned int j, p;
 
-	for (c = 0, p = 0, j = 0; (!p) && (fs[j].spec != 0); j++)
+	for (p = 0, j = 0; (!p) && (fs[j].spec != 0); j++)
 	{/* Looping through the supported specifiers */
 		if (specifier == fs[j].spec)
 		{
-			c += fs[j].print_func(var);
+			fs[j].print_func(var, b);
 			p = 1;
 		}
 	}
 	if (!p)
 	{/* Handling when the specifier is not supported */
-		c += _putchar('%');
-		c += _putchar(specifier);
+		buf_add_char('%', b);
+		buf_add_char(specifier, b);
 	}
-	return (c);
 }
 
 /**
@@ -64,32 +64,36 @@ int check_format(char specifier, format_spec_t *fs, va_list *var)
  */
 int _printf(const char *format, ...)
 {
-	unsigned int i, c;
+	unsigned int i;
 	va_list var;
 	format_spec_t form[SUPPORTED_SPEC_COUNT + 1];
+	print_buf_t buf;
 
 	init_format_spec(form);
+	buf_init(&buf);
 	va_start(var, format);
-	for (c = 0, i = 0; ((format != NULL) && (format[i] != '\0')); i++)
+	for (i = 0; ((format != NULL) && (format[i] != '\0')); i++)
 	{
 		if (format[i] == '%')
 		{
 			if (format[++i] != '\0')
 			{
-				c += check_format(format[i], form, &var);
+				check_format(format[i], form, &var, &buf);
 			}
 			else
 			{/* Handling when '%' is the last character */
-				_putchar('%');
-				c = -1;
+				buf_add_char('%', &buf);
+				buf.prt_cnt = -1;
 				break;
 			}
 		}
 		else
 		{/* Handling a normal character */
-			c += _putchar(format[i]);
+			buf_add_char(format[i], &buf);
 		}
 	}
 	va_end(var);
-	return (c);
+	buf_write(&buf);
+	buf_kill(&buf);
+	return (buf.prt_cnt);
 }

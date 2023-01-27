@@ -4,38 +4,37 @@
  * print_char- Prints a char from the first element of
  *  a given variable list
  * @var: Pointer to the variable list
- * Return: The number of characters that are printed
+ * @b: A pointer to the print buffer to be used
  */
-int print_char(va_list *var)
+void print_char(va_list *var, print_buf_t *b)
 {
-	return (_putchar(va_arg(*var, int)));
+	buf_add_char((va_arg(*var, int)), b);
 }
 
 /**
  * print_str- Prints a string from the first element of
  *  a given variable list
  * @var: Pointer to the variable list
- * Return: The number of characters that are printed
+ * @b: A pointer to the print buffer to be used
  */
-int print_str(va_list *var)
+void print_str(va_list *var, print_buf_t *b)
 {
 	char *str;
 
 	str = va_arg(*var, char *);
-	if (str == NULL)
+	if (str != NULL)
 	{
-		return (-1);
+		buf_add_str(str, b);
 	}
-	return (_puts(str));
 }
 
 /**
  * print_pcnt- Prints a percentage sign
  * @var: Pointer to the variable list
- * Return: The number of characters that are printed
+ * @b: A pointer to the print buffer to be used
  */
-int print_pcnt(va_list *var)
+void print_pcnt(va_list *var, print_buf_t *b)
 {
 	(void)var;
-	return (_putchar('%'));
+	buf_add_char('%', b);
 }
