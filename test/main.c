@@ -40,8 +40,8 @@ int main(void)
     len = _printf("Character:[%c]\n", 'H');
     len2 = printf("Character:[%c]\n", 'H');
     printf("****Length:[%d, %i]\n\n", len, len2);
-    len = _printf("String:[%s]\n", NULL);
-    len2 = printf("String:[%s]\n", NULL);
+    len = _printf("String:[%s]\n", "ABCD\xEFGHIJKLM");
+    len2 = printf("String:[%s]\n", "ABCD\xEFGHIJKLM");
     printf("****Length:[%d, %i]\n\n", len, len2);
     /*len = _printf("Address:[%p]\n", addr);
     len2 = printf("Address:[%p]\n", addr);

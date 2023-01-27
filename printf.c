@@ -71,6 +71,8 @@ int _printf(const char *format, ...)
 
 	init_format_spec(form);
 	buf_init(&buf);
+	if (buf.start == NULL)
+		return (-1);
 	va_start(var, format);
 	for (i = 0; ((format != NULL) && (format[i] != '\0')); i++)
 	{

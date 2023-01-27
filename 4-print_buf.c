@@ -8,9 +8,9 @@
  */
 void buf_init(print_buf_t *b)
 {
-	b->start = malloc(PRINTF_BUFFER_SIZE);
+	b->start = malloc(PRINTF_BUF_SIZE);
 	b->curs = b->start;
-	b->end = b->start + PRINTF_BUFFER_SIZE;
+	b->end = b->start + PRINTF_BUF_SIZE;
 	b->prt_cnt = 0;
 }
 

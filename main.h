@@ -2,7 +2,7 @@
 #define _MAIN_H_
 
 #define SUPPORTED_SPEC_COUNT 6
-#define PRINTF_BUFFER_SIZE 1024
+#define PRINTF_BUF_SIZE 1024
 #define NULL ((void *)0)
 
 #include <stdarg.h>
