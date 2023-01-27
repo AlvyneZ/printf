@@ -17,6 +17,10 @@ void init_format_spec(format_spec_t *form_specifiers)
 		{'d', &print_int},
 		{'i', &print_int},
 		{'b', &print_bin},
+		{'o', &print_oct},
+		{'u', &print_ush},
+		{'x', &print_hex},
+		{'X', &print_HeX},
 		/*
 		 * NOTE: "SUPPORTED_SPEC_COUNT" should be changed in
 		 *  main.h after adding new specifiers

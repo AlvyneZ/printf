@@ -1,7 +1,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#define SUPPORTED_SPEC_COUNT 6
+#define SUPPORTED_SPEC_COUNT 10
 #define PRINTF_BUF_SIZE 1024
 #define NULL ((void *)0)
 
@@ -60,5 +60,10 @@ void print_pcnt(va_list *var, print_buf_t *b);
 void print_int(va_list *var, print_buf_t *b);
 /* 2-print_b.c */
 void print_bin(va_list *var, print_buf_t *b);
+/* 3-print_o_u_x.c */
+void print_oct(va_list *var, print_buf_t *b);
+void print_ush(va_list *var, print_buf_t *b);
+void print_hex(va_list *var, print_buf_t *b);
+void print_HeX(va_list *var, print_buf_t *b);
 
 #endif /* _MAIN_H_ */
