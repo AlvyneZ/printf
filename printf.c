@@ -16,16 +16,15 @@ void init_format_spec(format_spec_t *form_specifiers)
 		{'%', &print_pcnt},
 		{'d', &print_int},
 		{'i', &print_int},
+		{'b', &print_bin},
 		/*
 		 * NOTE: "SUPPORTED_SPEC_COUNT" should be changed in
 		 *  main.h after adding new specifiers
-		 * {'i', &print_int},
-		 * {'f', &print_float}
 		*/
 		{0, NULL}
 	};
 
-	for (i = 0; i < SUPPORTED_SPEC_COUNT; i++)
+	for (i = 0; i <= SUPPORTED_SPEC_COUNT; i++)
 		form_specifiers[i] = f[i];
 }
 
@@ -67,7 +66,7 @@ int _printf(const char *format, ...)
 {
 	unsigned int i, c;
 	va_list var;
-	format_spec_t form[SUPPORTED_SPEC_COUNT];
+	format_spec_t form[SUPPORTED_SPEC_COUNT + 1];
 
 	init_format_spec(form);
 	va_start(var, format);
