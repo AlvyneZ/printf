@@ -8,20 +8,25 @@
  */
 void print_oct(va_list *var, print_buf_t *b)
 {
-	unsigned int max, zeros, n;
+	unsigned int max, zeros, n, cnt;
 
 	zeros = 0;
+	cnt = 10;
 	n = va_arg(*var, unsigned int);
-	for (max = (0x1U << 31); max >= 1; max >>= 1)
+	for (max = (0x7U << 30); max >= 1; max >>= 3, cnt--)
 	{
-		if (max == 1)
+		if (cnt == 9)
+		{
+			max = (0x7U << 27);
+		}
+		if (max == 0x7U)
 		{
 			zeros = 1;
 		}
 		if (n & max)
 		{
 			zeros = 1;
-			buf_add_char('1', b);
+			buf_add_char(('0' + ((n & max) >> (3 * cnt))), b);
 		}
 		else
 		{
@@ -34,7 +39,7 @@ void print_oct(va_list *var, print_buf_t *b)
 }
 
 /**
- * print_ush- Prints an  unsigned short from
+ * print_ush- Prints an  unsigned short form
  *  the first element of a given variable list
  * @var: Pointer to the variable list
  * @b: A pointer to the print buffer to be used
@@ -45,25 +50,26 @@ void print_ush(va_list *var, print_buf_t *b)
 
 	zeros = 0;
 	n = va_arg(*var, unsigned int);
-	for (max = (0x1U << 31); max >= 1; max >>= 1)
-	{
-		if (max == 1)
+	for (max = 10000; max >= 1; max /= 10)
 		{
-			zeros = 1;
-		}
-		if (n & max)
-		{
-			zeros = 1;
-			buf_add_char('1', b);
-		}
-		else
-		{
-			if (zeros)
+			if (max == 1)
 			{
-				buf_add_char('0', b);
+				zeros = 1;
+			}
+			if (n < max)
+			{
+				if (zeros)
+				{
+					buf_add_char('0', b);
+				}
+			}
+			else
+			{
+				zeros = 1;
+				buf_add_char(('0' + (n / max)), b);
+				n %= max;
 			}
 		}
-	}
 }
 
 /**
@@ -74,20 +80,26 @@ void print_ush(va_list *var, print_buf_t *b)
  */
 void print_hex(va_list *var, print_buf_t *b)
 {
-	unsigned int max, zeros, n;
-
+	unsigned int max, zeros, n, cnt;
+	char c;
 	zeros = 0;
+	cnt = 7;
 	n = va_arg(*var, unsigned int);
-	for (max = (0x1U << 31); max >= 1; max >>= 1)
+	for (max = (0xFU << 28); max >= 1; max >>= 4, cnt--)
 	{
-		if (max == 1)
+		if (max == 0xFU)
 		{
 			zeros = 1;
 		}
 		if (n & max)
 		{
 			zeros = 1;
-			buf_add_char('1', b);
+			c = '0' + ((n & max) >> (4 * cnt));
+			if (c > 9)
+			{
+				c += ('a' - ':');
+			}
+			buf_add_char(c, b);
 		}
 		else
 		{
@@ -99,6 +111,7 @@ void print_hex(va_list *var, print_buf_t *b)
 	}
 }
 
+
 /**
  * print_HeX- Prints an  unsigned int in hex (capital letters) from
  *  the first element of a given variable list
@@ -107,20 +120,26 @@ void print_hex(va_list *var, print_buf_t *b)
  */
 void print_HeX(va_list *var, print_buf_t *b)
 {
-	unsigned int max, zeros, n;
-
+	unsigned int max, zeros, n, cnt;
+	char c;
 	zeros = 0;
+	cnt = 7;
 	n = va_arg(*var, unsigned int);
-	for (max = (0x1U << 31); max >= 1; max >>= 1)
+	for (max = (0xFU << 28); max >= 1; max >>= 4, cnt--)
 	{
-		if (max == 1)
+		if (max == 0xFU)
 		{
 			zeros = 1;
 		}
 		if (n & max)
 		{
 			zeros = 1;
-			buf_add_char('1', b);
+			c = '0' + ((n & max) >> (4 * cnt));
+			if (c > 9)
+			{
+				c += ('A' - ':');
+			}
+			buf_add_char(c, b);
 		}
 		else
 		{
