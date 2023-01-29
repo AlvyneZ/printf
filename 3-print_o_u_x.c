@@ -50,26 +50,26 @@ void print_ush(va_list *var, print_buf_t *b)
 
 	zeros = 0;
 	n = va_arg(*var, unsigned int);
-	for (max = 10000; max >= 1; max /= 10)
+	for (max = 1000000000; max >= 1; max /= 10)
+	{
+		if (max == 1)
 		{
-			if (max == 1)
+			zeros = 1;
+		}
+		if (n < max)
+		{
+			if (zeros)
 			{
-				zeros = 1;
-			}
-			if (n < max)
-			{
-				if (zeros)
-				{
-					buf_add_char('0', b);
-				}
-			}
-			else
-			{
-				zeros = 1;
-				buf_add_char(('0' + (n / max)), b);
-				n %= max;
+				buf_add_char('0', b);
 			}
 		}
+		else
+		{
+			zeros = 1;
+			buf_add_char(('0' + (n / max)), b);
+			n %= max;
+		}
+	}
 }
 
 /**
@@ -82,6 +82,7 @@ void print_hex(va_list *var, print_buf_t *b)
 {
 	unsigned int max, zeros, n, cnt;
 	char c;
+
 	zeros = 0;
 	cnt = 7;
 	n = va_arg(*var, unsigned int);
@@ -122,6 +123,7 @@ void print_HeX(va_list *var, print_buf_t *b)
 {
 	unsigned int max, zeros, n, cnt;
 	char c;
+
 	zeros = 0;
 	cnt = 7;
 	n = va_arg(*var, unsigned int);
